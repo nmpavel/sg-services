@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ *
+ * RemoteRecruit design tokens
+ * Sourced from design/ exports (SVG vector colors + pixel-sampled PNG).
+ * See RemoteRecruit_Implementation_Plan.md §3 for per-token provenance.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Brand blues — the single gradient drives nearly every blue surface */
+  --color-brand-sky: #52b4da; /* gradient start (exact, from SVGs) */
+  --color-brand-mid: #336da6; /* secondary gradient stop (exact) */
+  --color-brand-navy: #1e3e85; /* gradient end (exact, from SVGs) */
+  --color-brand-blue: #2b5b9a; /* solid fallback ≈ gradient midpoint */
+  --color-logo-cyan: #50c0e3; /* "R" monogram accent (exact) */
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-alt: #e6e7fc; /* lavender CTA band */
+  --color-skilltag: #f1f3fd;
+
+  /* Pills / badges */
+  --color-badge: #c2eeff;
+  --color-badge-text: #354057;
+  --color-skilltag-text: #254d8f;
+
+  /* Text */
+  --color-heading: #11142d;
+  --color-body: #5a5c6e;
+  --color-body-soft: #6d6e7a;
+  --color-excluded: #9ca3af; /* excluded ✕ in pricing (visual estimate) */
+
+  /* Typography */
+  --font-heading: var(--font-poppins);
+  --font-sans: var(--font-inter);
+
+  /* Radii */
+  --radius-card: 1.25rem; /* ~20px cards */
+  --radius-pill: 9999px;
+
+  /* Shadows — soft, large blur per design */
+  --shadow-card: 0 20px 45px -20px rgba(30, 62, 133, 0.25);
+  --shadow-soft: 0 12px 30px -12px rgba(30, 62, 133, 0.18);
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #11142d;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Base element styles live in @layer base so Tailwind utilities (e.g.
+   text-white on the hero H1) reliably override them — un-layered rules would
+   otherwise beat layered utilities in the cascade. Heading colour is left to
+   each component's own text-* class. */
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--color-body);
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-poppins), system-ui, sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* The one brand gradient (135°, #52B4DA → #1E3E85) used across hero,
+   footer, checkmark circles, primary buttons. */
+.bg-brand-gradient {
+  background-image: linear-gradient(135deg, #52b4da 0%, #1e3e85 100%);
+}
+
+/* Hero/footer use a deeper navy variant with the sky tint pulled to a corner */
+.bg-brand-deep {
+  background-image: linear-gradient(150deg, #2a5596 0%, #1e3e85 55%, #1c386f 100%);
+}
+
+/* Primary filled button (Premium pricing CTA): navy-blue, not the cyan brand
+   gradient — sampled from the design (#3571AA → #2D609E range). */
+.bg-button-primary {
+  background-image: linear-gradient(115deg, #3a74ae 0%, #244f88 100%);
+}
+
+/* Respect users who prefer reduced motion — disable transitions/animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }

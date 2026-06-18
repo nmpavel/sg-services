@@ -61,9 +61,7 @@ src/
     types.ts                # shared typed contracts
     data/                   # faq, plans, features, social (mock data)
     utils.ts                # cn()
-public/assets/              # mockup images exported from Figma
-design/                     # original Figma exports (reference, not shipped)
-scripts/shoot.mjs           # Playwright screenshot helper (dev-only)
+public/assets/              # mockup images exported 
 ```
 
 ### Architecture (SOLID + patterns)
@@ -90,7 +88,7 @@ scripts/shoot.mjs           # Playwright screenshot helper (dev-only)
 
 - **Scroll reveal** — fade-in + slide-up as each block enters the viewport
   (staggered for cards), via `Reveal` + Framer Motion `whileInView`.
-- **Navbar** — transparent over the hero, solid/blurred after scroll; mobile
+- **Navbar** — transparent over the hero, solid after scroll; mobile
   hamburger opens an animated overlay (body-scroll locked while open).
 - **FAQ** — accessible accordion (`<button>` + `aria-expanded`/`aria-controls`,
   animated height, rotating chevron). Collapsed by default — see decisions.
@@ -128,40 +126,15 @@ breakpoints below were designed to sensible, consistent rules.
 - **Fonts** — the exact Figma font family could not be confirmed (flattened
   PNG/SVG exports carry no font metadata). Substituted **Poppins** (headings) +
   **Inter** (body), the closest free Google Fonts.
-- **Colours / tokens** — extracted from the `design/` exports: exact hex from the
-  vector SVGs (the brand gradient `#52B4DA → #1E3E85` drives most blue surfaces,
-  the checkmark icons and the logo) and pixel-sampling the full-page PNG for
-  badges/text/surfaces. See `RemoteRecruit_Implementation_Plan.md §3`.
+- **Colours / tokens** — the brand gradient `#52B4DA → #1E3E85` drives most blue
+  surfaces, the checkmark icons and the logo; badge/text/surface colours follow
+  from the design.
 - **Social links** — placeholder `#` (no real URLs were provided). Sign In / Sign
   Up / Get Started / More Questions are also placeholders.
-- **Animation library** — Framer Motion (richer orchestration for the "completely
-  interactive" requirement); the bundle cost is accepted and contained to client
-  components.
-
-### Known limitations
-
-- Exact spacing/radii/shadow values were read visually, not from Figma Inspect.
-- The Showcase mockup was only available as a 1× export, so it is marginally
-  softer than the others on high-DPI screens.
-- The excluded-feature ✕ icon colour is a close visual estimate.
-
----
-
-## Visual verification
-
-`scripts/shoot.mjs` (Playwright) captures full-page screenshots at desktop /
-tablet / mobile widths against a running server — used during development to
-diff against the Figma frame.
-
-```bash
-npm run start &        # serve on a port, then point the script at it
-node scripts/shoot.mjs
-```
 
 ---
 
 ## Deployment
 
 Deploy to Vercel (zero-config for Next.js): push to GitHub and import the repo,
-or run `vercel`. The `design/` reference folder and `scripts/` helper are not
-part of the shipped page bundle.
+or run `vercel`.

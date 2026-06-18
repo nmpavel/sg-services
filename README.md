@@ -138,3 +138,5 @@ breakpoints below were designed to sensible, consistent rules.
 
 Deploy to Vercel (zero-config for Next.js): push to GitHub and import the repo,
 or run `vercel`.
+
+**Live:** [https://sg-services-3tteip2k7-nmpavels-projects.vercel.app/](https://sg-services-3tteip2k7-nmpavels-projects.vercel.app/)

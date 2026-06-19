@@ -1,5 +1,4 @@
 import { Container } from "@/components/ui/Container";
-import { Reveal } from "@/components/common/Reveal";
 
 export function Hero() {
   return (
@@ -17,20 +16,18 @@ export function Hero() {
       </div>
 
       <Container className="relative z-10 flex flex-col items-center pb-44 pt-40 text-center sm:pb-52 sm:pt-44">
-        <Reveal>
-          <h1 className="font-heading text-[clamp(2.4rem,5.2vw,3.5rem)] font-bold leading-[1.1] tracking-tight text-white">
-            RemoteRecruit&rsquo;s Difference
-          </h1>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-6 max-w-[42rem] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.7] text-white/85">
-            RemoteRecruit is connecting the world with an easy-to-use platform
-            that lets full-time, part-time, and freelance workers showcase their
-            talents to businesses that need them. With no paywalls, no fees, and
-            no barriers, there&rsquo;s nothing but you, your talents, and the
-            next step in your career.
-          </p>
-        </Reveal>
+        {/* Above-the-fold (LCP) content paints immediately — no opacity gating,
+            so Largest Contentful Paint is not delayed behind client hydration. */}
+        <h1 className="font-heading text-[clamp(2.4rem,5.2vw,3.5rem)] font-bold leading-[1.1] tracking-tight text-white">
+          RemoteRecruit&rsquo;s Difference
+        </h1>
+        <p className="mt-6 max-w-[42rem] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.7] text-white/85">
+          RemoteRecruit is connecting the world with an easy-to-use platform
+          that lets full-time, part-time, and freelance workers showcase their
+          talents to businesses that need them. With no paywalls, no fees, and
+          no barriers, there&rsquo;s nothing but you, your talents, and the next
+          step in your career.
+        </p>
       </Container>
 
       {/* Wave separator into the features section, derived from
